@@ -87,8 +87,9 @@
         <di:waypoint x="256" y="260" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="f2_di" bpmnElement="f2">
-        <di:waypoint x="306" y="220" />
-        <di:waypoint x="306" y="132.5" />
+        <di:waypoint x="356" y="247" />
+        <di:waypoint x="386" y="247" />
+        <di:waypoint x="386" y="132.5" />
         <di:waypoint x="416" y="132.5" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="f3_di" bpmnElement="f3">

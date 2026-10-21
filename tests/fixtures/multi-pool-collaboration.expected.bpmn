@@ -200,8 +200,9 @@
         <di:waypoint x="831" y="364.5" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="sf6_di" bpmnElement="sf6">
-        <di:waypoint x="696" y="427" />
-        <di:waypoint x="696" y="339.5" />
+        <di:waypoint x="746" y="467" />
+        <di:waypoint x="776" y="467" />
+        <di:waypoint x="776" y="339.5" />
         <di:waypoint x="806" y="339.5" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="sf7_di" bpmnElement="sf7">

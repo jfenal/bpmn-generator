@@ -69,7 +69,7 @@
 <text text-anchor="middle" font-size="11" fill="#22242a"><tspan x="854" y="147.4">Document</tspan><tspan x="854" y="160.6">approved</tspan></text>
 </g>
 <path data-element-id="f1" data-waypoints="206,250 286,250" d="M 206 250 L 286 250" stroke="#22242a" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#seq-end)"/>
-<path data-element-id="f2" data-waypoints="336,210 336,122.5 446,122.5" d="M 336 210 L 336 127.5 C 336 125 338.5 122.5 341 122.5 L 446 122.5" stroke="#22242a" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#seq-end)"/>
+<path data-element-id="f2" data-waypoints="386,237 416,237 416,122.5 446,122.5" d="M 386 237 L 411 237 C 413.5 237 416 234.5 416 232 L 416 127.5 C 416 125 418.5 122.5 421 122.5 L 446 122.5" stroke="#22242a" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#seq-end)"/>
 <path data-element-id="f3" data-waypoints="496,122.5 656,122.5" d="M 496 122.5 L 656 122.5" stroke="#22242a" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#seq-end)"/>
 <text text-anchor="middle" font-size="11" fill="#22242a"><tspan x="576" y="114.4">Yes</tspan></text>
 <path data-element-id="f4" data-waypoints="496,122.5 566,122.5 566,237 636,237" d="M 496 122.5 L 561 122.5 C 563.5 122.5 566 125 566 127.5 L 566 232 C 566 234.5 568.5 237 571 237 L 636 237" stroke="#22242a" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" marker-start="url(#seq-default-src)" marker-end="url(#seq-end)"/>
