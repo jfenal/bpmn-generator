@@ -47,7 +47,10 @@
  * not entered from the left +1, an activity/event source not left to the right +1; a back-edge into
  * a gateway entered from the left +1). When the current route has a side penalty, Pass B/C may spend
  * up to bendRuleLimits.sideBendBudget (+ backEdgeBendBudget on back-edges) extra bends to clear it
- * (Miragon flow-connection-side prefers left-in / right-out on activities). Ties: crossings, moved
+ * (Miragon flow-connection-side prefers left-in / right-out on activities). Before Pass B, a route
+ * that still enters an activity/event other than from the left and leaves vertically gets one more
+ * candidate shape the search never builds: a 3-bend staircase — same first leg, a corridor, a drop
+ * beside the target, in from the left — under the strict guards. Ties: crossings, moved
  * endpoints, length, corridor nearest the middle. The pass repeats until a full sweep changes
  * nothing; a repeated route fingerprint or maxSweeps cap stops Pass B/C from oscillating with Pass A
  * (e.g. top-entry L ↔ left-entry Z around a gateway node label). Idempotent once stable.
@@ -915,6 +918,40 @@ export function applyBendRule(coordMap, lc, opts = {}) {
       const backEdge = sb && tb && (sb.x + sb.w / 2) > (tb.x + tb.w / 2) + 10;
       const env = envelopeFor(en, ctx);
       const inset = cfg.limits.regionInset;
+      // Staircase into the left side: keep the current first leg, run along a corridor, drop
+      // beside the target and enter it from the left — 3 bends. search() builds only 0/1/2-bend
+      // shapes (the router only when none fits) and Pass C builds 4-bend U-turns, so without this
+      // the plain staircase is never proposed (example-urlaubsantrag f210, example-onboarding f510).
+      const curSegs = segsOf(en.points);
+      // A zero-length route (all points coincide) has no first leg to keep — search() skips it too.
+      if (penaltyNow > 0 && sb && tb && curSegs.length && !isGateway(ctx.typeOf[en.target])
+        && entrySide(en.points) !== 'left') {
+        const P = en.points, a = P[0];
+        const out = dirOf(curSegs[0]);
+        const tIn = { x: tb.x, y: tb.y + tb.h / 2 };
+        const xT = tb.x - 2 * cfg.stubPx;
+        const budget = (cfg.limits.sideBendBudget ?? 0)
+          + (backEdge ? (cfg.limits.backEdgeBendBudget ?? 0) : 0);
+        if (Math.abs(out[0]) < EPS && xT > a.x + cfg.stubPx && 3 <= curBends + budget) {
+          const ys = new Set();
+          if (P.length >= 3 && Math.abs(P[1].y - P[2].y) < EPS) ys.add(P[1].y); // current corridor
+          ys.add((Math.max(a.y, sb.y + sb.h) + tb.y) / 2);                     // gap, target below
+          ys.add((Math.min(a.y, sb.y) + tb.y + tb.h) / 2);                     // gap, target above
+          const { check } = makeChecker(en, entries, ctx, cfg);               // strict guards
+          const stair = [];
+          for (const y of ys) {
+            const pts = withoutCollinear([a, { x: a.x, y }, { x: xT, y }, { x: xT, y: tIn.y }, tIn]);
+            if (bendCount(pts) === 3 && check(pts, out, INWARD.left)) stair.push(scoreCand({ pts, moved: 0 }));
+          }
+          stair.sort((x, y) => lexCompare(x.score, y.score));
+          if (stair.length && stair[0].score[0] < penaltyNow && !ptsEqual(stair[0].pts, en.points)) {
+            en.points = stair[0].pts;
+            changed.set(en.id, stair[0].pts);
+            progress = true;
+            continue;
+          }
+        }
+      }
       if (penaltyNow > 0) {
         const budget = (cfg.limits.sideBendBudget ?? 0)
           + (backEdge ? (cfg.limits.backEdgeBendBudget ?? 0) : 0);
