@@ -21,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `scripts/bpmn/naming.json` is read for the first time (project additions; empty as shipped).
   `BPMN_NAMING_JSON=<path>` now adds to both instead of replacing the corpus. `BPMN_EXTRA_NAMING`
   no longer has an effect. Fixture labels that lose a wrong M01 warning: "Book carrier", "Deploy
-  Build", "Run Tests", "Route request".
+  Build", "Run Tests", "Route request", "Assess application".
 - **M01 accepts verb-first phrases and hyphenated labels.** A new `englishVerbPhrases` list
   (`stand up`, `hand off`, `pre qualify`, …) lets a label pass when it starts with the whole
   phrase and an object follows ("Hand off request"; "Hand off" alone still violates). Hyphens
