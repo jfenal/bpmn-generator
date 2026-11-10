@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.0.0-rc.3] - 2026-11-11
+
+Third release candidate. The bend rule enters more activities and events from the left
+(a 3-bend staircase), and M01 recognises more English verb-first task names.
+
 ### Fixed
 
 - **The bend rule enters more activities and events from the left.** It now also proposes a
